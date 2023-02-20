@@ -1,27 +1,43 @@
-import React, { Component, Fragment } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
-import Slider from 'react-slick'
-import HomeSlider from './HomeSlider'
-import MegaMenu from './MegaMenu'
+import axios from "axios";
+import React, { Component, Fragment } from "react";
+import { Col, Container, Row } from "react-bootstrap";
+import Slider from "react-slick";
+import AppURL from "../../api/AppURL";
+import HomeSlider from "./HomeSlider";
+import MegaMenu from "./MegaMenu";
 
 class HomeTop extends Component {
+  constructor() {
+    super();
+    this.state = {
+      MenuData: [],
+    };
+  }
+
+  componentDidMount() {
+    axios.get(AppURL.AllCategory).then((reponse) => {
+      // console.log(reponse.data)
+      this.setState({MenuData:reponse.data})
+    });
+  }
+
   render() {
     return (
-            <Fragment>
-                <Container className='p-0 m-0 overflow-hidden' fluid={true}>
-                    <Row>
-                        <Col lg={3} md={3} sm={12}>
-                            <MegaMenu />
-                        </Col>
+      <Fragment>
+        <Container className="p-0 m-0 overflow-hidden" fluid={true}>
+          <Row>
+            <Col lg={3} md={3} sm={12}>
+              <MegaMenu data={this.state.MenuData} />
+            </Col>
 
-                        <Col lg={9} md={9} sm={12}>
-                            <HomeSlider />
-                        </Col>
-                    </Row>
-                </Container>
-            </Fragment>
-    )
+            <Col lg={9} md={9} sm={12}>
+              <HomeSlider />
+            </Col>
+          </Row>
+        </Container>
+      </Fragment>
+    );
   }
 }
 
-export default HomeTop
+export default HomeTop;

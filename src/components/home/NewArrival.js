@@ -3,12 +3,17 @@ import { Card, Col, Container, Row } from 'react-bootstrap'
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick'
+import axios from 'axios';
+import AppURL from '../../api/AppURL';
 
 class NewArrival extends Component {
   
   constructor(props)
     {
       super();
+      this.state={
+        productData : []
+      }
       this.next = this.next.bind(this)
       this.previous = this.previous.bind(this)
     }
@@ -21,10 +26,42 @@ class NewArrival extends Component {
     {
       this.Slider.slickPrev()
     }
+    componentDidMount() {
+      axios.get(AppURL.ProductListByRemark("New")).then((response) => {
+        console.log(response.data)
+        this.setState({productData:response.data})
+      })
+      
+    }
   
   render() {
 
-    
+    const newList = this.state.productData
+    const newArray = newList.map((list,i) => {
+      if(list.special_price == null) {
+        return (
+          <Card className="image-box card">
+          <img className="center" src={list.image} />
+          <Card.Body>
+              <p className="product-name-on-card">{list.title}</p>
+              <p className="product-price-on-card">Price : ${list.price}</p>
+          </Card.Body>
+        </Card>
+        )
+      }
+      else {
+        return (
+          <Card className="image-box card">
+          <img className="center" src={list.image} />
+          <Card.Body>
+              <p className="product-name-on-card">{list.title}</p>
+              <p className="product-price-on-card">Price : <strike className="text-secondary">${list.price}</strike> ${list.special_price}</p>
+          </Card.Body>
+        </Card>
+        )
+      }
+      
+    }) 
 
     var settings = {
         // dots: true,
@@ -79,52 +116,19 @@ class NewArrival extends Component {
                 <Row>
                 <Slider ref={c => (this.Slider = c)} {...settings}>
           <div>
-          <Card className="image-box card">
-                <img className="center" src="https://m.media-amazon.com/images/I/41kg-+XWoxL._SY300_SX300_.jpg" />
-                <Card.Body>
-                    <p className="product-name-on-card">Samsung Galaxy M04 Dark Blue</p>
-                    <p className="product-price-on-card">Price : $120</p>
-                </Card.Body>
-              </Card>
+          {newArray}
           </div>
           <div>
-          <Card className="image-box card">
-                <img className="center" src="https://m.media-amazon.com/images/I/41kg-+XWoxL._SY300_SX300_.jpg" />
-                <Card.Body>
-                    <p className="product-name-on-card">Samsung Galaxy M04 Dark Blue</p>
-                    <p className="product-price-on-card">Price : $120</p>
-                </Card.Body>
-              </Card>
+          {newArray}
           </div>
           <div>
-          <Card className="image-box card">
-                <img className="center" src="https://m.media-amazon.com/images/I/41kg-+XWoxL._SY300_SX300_.jpg" />
-                <Card.Body>
-                    <p className="product-name-on-card">Samsung Galaxy M04 Dark Blue</p>
-                    <p className="product-price-on-card">Price : $120</p>
-                </Card.Body>
-              </Card>
+          {newArray}
           </div>
           <div>
-          <Card className="image-box card">
-                <img className="center" src="https://m.media-amazon.com/images/I/41kg-+XWoxL._SY300_SX300_.jpg" />
-                <Card.Body>
-                    <p className="product-name-on-card">Samsung Galaxy M04 Dark Blue</p>
-                    <p className="product-price-on-card">Price : $120</p>
-                </Card.Body>
-              </Card>
+          {newArray}
           </div>
           <div>
-            <h3>5</h3>
-          </div>
-          <div>
-            <h3>6</h3>
-          </div>
-          <div>
-            <h3>7</h3>
-          </div>
-          <div>
-            <h3>8</h3>
+          {newArray}
           </div>
         </Slider>
                 </Row>
