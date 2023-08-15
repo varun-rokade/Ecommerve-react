@@ -1,33 +1,27 @@
-import axios from "axios";
-import React, { Component, Fragment } from "react";
-import { Col, Container, Row, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import AppURL from "../../api/AppURL";
+import axios from 'axios'
+import React, { Component, Fragment } from 'react'
+import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import AppURL from '../../api/AppURL'
 
-export class FeaturedProduct extends Component {
+class Category extends Component {
 
   constructor() {
     super();
+  }
 
-    this.state={
-      productData : []
+    componentDidMount() {
+       window.scroll(0,0)
     }
-  }
-
-  componentDidMount() {
-    axios.get(AppURL.ProductListByRemark("FEATURED")).then((response) => {
-      // let data =  response.data
-      this.setState({productData:response.data})
-    })
-    
-  }
 
   render() {
 
-    const featuredList = this.state.productData
+    const productData = this.props.ProductData
+    const categoryList = this.props.Category
+    // console.log(productData)
 
-    const featureArray = featuredList.map((list,i) => {
-      console.log(list.id)
+    const myView = productData.map((list,i) => {
+
       if(list.special_price = null) {
         return(
           <Row>
@@ -54,7 +48,7 @@ export class FeaturedProduct extends Component {
           <img className="center" src={list.image} />
           <Card.Body>
               <p className="product-name-on-card">{list.title}</p>
-              <p className="product-price-on-card">Price : <strike className="text-secondary">${list.price}</strike> ${list.special_price}</p>
+              <p className="product-price-on-card">Price :<strike className="text-secondary">${list.price}</strike> ${list.special_price}</p>
           </Card.Body>
         </Card>
         </Link>
@@ -62,21 +56,18 @@ export class FeaturedProduct extends Component {
       </Row>
         )
       }
-
-      console.log(list)
-      
-      
     })
+    
 
     return (
       <Fragment>
         <Container className="text-center" fluid={true}>
           <div className="section-title text-center mb-55">
-            <h2>FEATURED PRODUCTS</h2>
-            <p>Some Of Our Exclusive Collection</p>
+            <h2>{categoryList}</h2>
+            <p></p>
           </div>
           <Row>
-            {featureArray}
+            {myView}
           </Row>
         </Container>
       </Fragment>
@@ -84,4 +75,4 @@ export class FeaturedProduct extends Component {
   }
 }
 
-export default FeaturedProduct;
+export default Category

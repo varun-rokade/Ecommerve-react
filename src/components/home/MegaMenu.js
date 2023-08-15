@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom';
 
 class MegaMenu extends Component {
 
@@ -58,7 +59,7 @@ class MegaMenu extends Component {
                     <ul>
                         {
                             (categoryList.subcategory_name).map((subcategory_name,i) => {
-                                return <li key={i.toString()}><a href='#' className='accordionItem'>{subcategory_name.subcategory_name}</a></li>
+                                return <li key={i.toString()}><Link to={"productsubcategory/"+categoryList.category_name+"/"+subcategory_name.subcategory_name} className='accordionItem'>{subcategory_name.subcategory_name}</Link></li>
                             })
                         }
                         {/* <li><a href='#' className='accordionItem'>{categoryList[0]}</a></li> */}

@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { Component, Fragment } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import AppURL from "../../api/AppURL";
-
 class Categories extends Component {
 
   constructor() {
@@ -14,7 +14,7 @@ class Categories extends Component {
 
   componentDidMount() {
     axios.get(AppURL.AllCategory).then((reponse) => {
-      // console.log(reponse.data)
+      console.log(reponse.data)
       this.setState({MenuData:reponse.data})
     });
   }
@@ -25,6 +25,7 @@ class Categories extends Component {
     const myView = myCategoryList.map((catList, i) => {
         return (
           <Col key={i.toString()} className="p-0" key={1} xl={2} lg={2} md={2} sm={6} xs={6}>
+            <Link className="text-link" to={"/productcategory/"+catList.category_name}>
                   <Card className="h-100 w-100 text-center">
                     <Card.Body>
                       <img
@@ -37,6 +38,7 @@ class Categories extends Component {
                       </p> */}
                     </Card.Body>
                   </Card>
+                  </Link>
                 </Col>
           )
     })

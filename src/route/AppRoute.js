@@ -9,6 +9,8 @@ import ProductDetailPage from '../pages/ProductDetailPage'
 import NotificationPage from '../pages/NotificationPage'
 import WishListPage from '../pages/WishListPage'
 import CartPage from '../pages/CartPage'
+import ProductCategoryPage from '../pages/ProductCategoryPage'
+import ProductSubCategoryPage from '../pages/ProductSubCategories'
 
 
 class AppRoute extends Component {
@@ -21,10 +23,12 @@ class AppRoute extends Component {
             <Route exact path='/login' component={UserLoginPage} />
             <Route exact path='/contact' component={ContactPage} />
             <Route exact path='/purchase' component={HowToPurchasePage} />
-            <Route exact path='/productdetail' component={ProductDetailPage} />
+            <Route exact path='/productdetails/:id' component={ProductDetailPage} />
             <Route exact path="/notification" component={NotificationPage} />
             <Route exact path="/wishlist" component={WishListPage}/>
             <Route exact path="/cart" component={CartPage}/>
+            <Route exact path="/productcategory/:category" component={ProductCategoryPage}/>
+            <Route exact path="/productsubcategory/:category/:subcategory" component={ProductSubCategoryPage}/>            
         </Switch> 
       </Fragment>
     )

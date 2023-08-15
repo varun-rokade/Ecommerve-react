@@ -4,6 +4,7 @@ class AppURL {
     static ContactDetails = this.BaseUrl+"/postcontact"
     static AllSiteInfo = this.BaseUrl+"/allsiteinfo"
     static AllCategory = this.BaseUrl+"/allcategory"
+    
     static ProductListByRemark(Remark) {
         return this.BaseUrl+"/productlistbyremark/"+Remark;
     }
@@ -12,9 +13,16 @@ class AppURL {
         return this.BaseUrl+"/productlistbycategory/"+Category;
     }
 
-    static ProductListBySubCategory(Remark) {
-        return this.BaseUrl+"/productlistbysubcategory/"+Remark;
+    static ProductListBySubCategory(Category,subCategory) {
+        return this.BaseUrl+"/productlistbysubcategory/"+Category+"/"+subCategory;
     }
+
+    static SliderUrl = this.BaseUrl+"/allslider"
+
+    static ProductDetails(id) {
+        debugger
+        return this.BaseUrl+"/productdetails/"+id
+    } 
 
 }
 

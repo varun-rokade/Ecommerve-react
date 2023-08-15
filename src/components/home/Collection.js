@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { Component, Fragment } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import AppURL from "../../api/AppURL";
+import { Link } from "react-router-dom";
 
 class Collection extends Component {
 
@@ -27,6 +28,7 @@ class Collection extends Component {
       if(list.special_price == null) {
         return (
           <Col className="p-0" key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
+             <Link className="text-link" to={'/productdetails/'+list.id}>
                 <Card className="image-box card">
                   <img
                     className="center"
@@ -39,12 +41,14 @@ class Collection extends Component {
                     <p className="product-price-on-card">Price : ${list.price}</p>
                   </Card.Body>
                 </Card>
+                </Link>
               </Col>
         )
       }
       else {
         return (
           <Col className="p-0" key={1} xl={3} lg={3} md={3} sm={6} xs={6}>
+            <Link className="text-link" to={'/productdetails/'+list.id}>
                 <Card className="image-box card">
                   <img
                     className="center"
@@ -57,6 +61,7 @@ class Collection extends Component {
                     <p className="product-price-on-card">Price :<strike className="text-secondary">${list.price}</strike> ${list.special_price}</p>
                   </Card.Body>
                 </Card>
+                </Link>
               </Col>
         )
       }

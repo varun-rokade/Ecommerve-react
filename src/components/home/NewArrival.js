@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick'
 import axios from 'axios';
 import AppURL from '../../api/AppURL';
+import { Link } from 'react-router-dom';
 
 class NewArrival extends Component {
   
@@ -40,6 +41,7 @@ class NewArrival extends Component {
     const newArray = newList.map((list,i) => {
       if(list.special_price == null) {
         return (
+          <Link className="text-link" to={'/productdetails/'+list.id}>
           <Card className="image-box card">
           <img className="center" src={list.image} />
           <Card.Body>
@@ -47,10 +49,12 @@ class NewArrival extends Component {
               <p className="product-price-on-card">Price : ${list.price}</p>
           </Card.Body>
         </Card>
+        </Link>
         )
       }
       else {
         return (
+          <Link className="text-link" to={'/productdetails/'+list.id}>
           <Card className="image-box card">
           <img className="center" src={list.image} />
           <Card.Body>
@@ -58,9 +62,9 @@ class NewArrival extends Component {
               <p className="product-price-on-card">Price : <strike className="text-secondary">${list.price}</strike> ${list.special_price}</p>
           </Card.Body>
         </Card>
+        </Link>
         )
       }
-      
     }) 
 
     var settings = {
@@ -128,7 +132,16 @@ class NewArrival extends Component {
           {newArray}
           </div>
           <div>
-          {newArray}
+          1
+          </div>
+          <div>
+          2
+          </div>
+          <div>
+          3
+          </div>
+          <div>
+          4
           </div>
         </Slider>
                 </Row>
