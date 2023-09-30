@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { Component, Fragment } from 'react'
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Breadcrumb, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import AppURL from '../../api/AppURL'
 
@@ -62,6 +62,13 @@ class Category extends Component {
     return (
       <Fragment>
         <Container className="text-center" fluid={true}>
+        <div className="breadbody">
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={"/productcategory/" + categoryList}>{categoryList}</Link></Breadcrumb.Item>
+          {/* <Breadcrumb.Item>Data</Breadcrumb.Item> */}
+        </Breadcrumb>
+        </div>
           <div className="section-title text-center mb-55">
             <h2>{categoryList}</h2>
             <p></p>

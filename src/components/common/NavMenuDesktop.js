@@ -1,10 +1,51 @@
 import React, { Component, Fragment } from "react";
 import { Button, Col, Container, Navbar, Row } from "react-bootstrap";
 import Logo from "../../assets/images/logo/easyshop.png";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router, Link, Redirect } from "react-router-dom";
 
 class NavMenuDesktop extends Component {
+
+  constructor() {
+    super()
+    this.state={
+    searchKey: "",
+    searchRedirectStatus:false
+    }
+    this.onSearchChange = this.onSearchChange.bind(this)
+    this.searchClick = this.searchClick.bind(this)
+    this.searchRedirect = this.searchRedirect.bind(this)
+  }
+
+
+  onSearchChange(evt) {
+      let searchKeyValue = evt.target.value;
+      this.setState({searchKey:searchKeyValue})
+  }
+
+  searchClick() {
+    if(this.state.searchKey.length >= 2) {
+        this.setState({searchRedirectStatus:true})
+    } 
+    else {
+
+    }
+  }
+
+  searchRedirect() {
+    if(this.state.searchRedirectStatus === true) {
+      return (
+        <Redirect to={"/productsbysearch/"+this.state.searchKey}/>
+
+        
+      )
+    }
+  }
+
   render() {
+
+    
+
+
     return (
       <Fragment>
         <div className="TopSectionDown">
@@ -22,8 +63,8 @@ class NavMenuDesktop extends Component {
 
                 <Col className="p-1 mt-1" lg={4} md={4} sm={12} xs={12}>
                   <div className="input-group w-100">
-                    <input type="text" className="form-control" />
-                    <Button type="button" className="btn site-btn">
+                    <input  onChange={this.onSearchChange} type="text" className="form-control" />
+                    <Button onClick={this.searchClick} type="button" className="btn site-btn">
                       <i className="fa fa-search"></i>
                     </Button>
                   </div>
@@ -60,6 +101,7 @@ class NavMenuDesktop extends Component {
                   
                 </Col>
               </Row>
+              {this.searchRedirect()}
             </Container>
           </Navbar>
         </div>

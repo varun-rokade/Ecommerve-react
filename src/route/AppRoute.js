@@ -11,6 +11,7 @@ import WishListPage from '../pages/WishListPage'
 import CartPage from '../pages/CartPage'
 import ProductCategoryPage from '../pages/ProductCategoryPage'
 import ProductSubCategoryPage from '../pages/ProductSubCategories'
+import SearchPage from '../pages/SearchPage'
 
 
 class AppRoute extends Component {
@@ -29,6 +30,7 @@ class AppRoute extends Component {
             <Route exact path="/cart" component={CartPage}/>
             <Route exact path="/productcategory/:category" component={ProductCategoryPage}/>
             <Route exact path="/productsubcategory/:category/:subcategory" component={ProductSubCategoryPage}/>            
+            <Route exact path="/productsbysearch/:searchKey" component={SearchPage}/>
         </Switch> 
       </Fragment>
     )

@@ -1,109 +1,120 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Fragment } from "react";
-import { Button, Col, Container, Form, Row} from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import AppURL from "../../api/AppURL";
 import validation from "../../validation/validation";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
+import { Link } from "react-router-dom";
 
 class Contact extends Component {
-  constructor(){
-    super()
-    this.state={
-      name:"",
-      email:"",
-      message:"",
-    }
+  constructor() {
+    super();
+    this.state = {
+      name: "",
+      email: "",
+      message: "",
+    };
   }
 
   nameInput = (evt) => {
-    let name = evt.target.value
+    let name = evt.target.value;
     // console.log(name)
-    this.setState({name:name})
-
-  }
+    this.setState({ name: name });
+  };
 
   emailInput = (evt) => {
-    let email = evt.target.value
-    this.setState({email:email})
+    let email = evt.target.value;
+    this.setState({ email: email });
     // console.log(email)
-  }
+  };
 
   messageInput = (evt) => {
-    let message = evt.target.value
-    this.setState({message:message})
+    let message = evt.target.value;
+    this.setState({ message: message });
     // console.log(message)
-  }
+  };
 
   onFormSubmit = (evt) => {
-    
     let sendBtn = document.getElementById("sendBtn");
 
-    let contactForm = document.getElementById("contactForm")
+    let contactForm = document.getElementById("contactForm");
 
-    let name = this.state.name
-    let email = this.state.email
-    let message = this.state.message
+    let name = this.state.name;
+    let email = this.state.email;
+    let message = this.state.message;
 
-    if(name.length == 0)
-    {
-      toast.error("Please write your name")
-    }
-    else if(email.length == 0)
-    {
-      toast.error("Please write your email")
-    }
-    else if(message.length == 0)
-    {
-      toast.error("Please write your message")
-    }
-    else if(!(validation.NameRegex).test(name))
-    {
-      toast.error("Invalid Name")
-    }
+    if (name.length == 0) {
+      toast.error("Please write your name");
+    } else if (email.length == 0) {
+      toast.error("Please write your email");
+    } else if (message.length == 0) {
+      toast.error("Please write your message");
+    } else if (!validation.NameRegex.test(name)) {
+      toast.error("Invalid Name");
+    } else {
+      sendBtn.innerText = "Sending...";
+      let formData = new FormData();
+      formData.append("name", name);
+      formData.append("contact_email", email);
+      formData.append("message", message);
 
-    else{
-      sendBtn.innerText = "Sending..."
-      let formData = new FormData()
-      formData.append("name",name)
-      formData.append("contact_email",email)
-      formData.append("message",message)
-
-      axios.post(AppURL.ContactDetails,formData)
-      .then(function(response){
-        if(response.status == 200 && response.data == 1)
-        {
-          toast.success("Message Send Successfully ")
-          sendBtn.innerText = "Send"
-          contactForm.reset();
-        }
-        else
-        {
-          alert("error")
-        }
-      })
-      .catch(function(error){
-          alert(error)
-      })
-          this.setState({name:""})
-          this.setState({email:""})
-          this.setState({message:""})
-
+      axios
+        .post(AppURL.ContactDetails, formData)
+        .then(function (response) {
+          if (response.status == 200 && response.data == 1) {
+            toast.success("Message Send Successfully ");
+            sendBtn.innerText = "Send";
+            contactForm.reset();
+          } else {
+            alert("error");
+          }
+        })
+        .catch(function (error) {
+          alert(error);
+        });
+      this.setState({ name: "" });
+      this.setState({ email: "" });
+      this.setState({ message: "" });
     }
-    evt.preventDefault()
-  }
+    evt.preventDefault();
+  };
 
   render() {
     return (
       <Fragment>
+        
         <Container>
+        <div className="breadbody">
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to="/contact">Contact</Link></Breadcrumb.Item>
+          {/* <Breadcrumb.Item>Data</Breadcrumb.Item> */}
+        </Breadcrumb>
+        </div>
           <Row className="p-2">
-            <Col className="shadow-sm bg-white mt-2" md={12} lg={12} sm={12} xs={12} >
+            <Col
+              className="shadow-sm bg-white mt-2"
+              md={12}
+              lg={12}
+              sm={12}
+              xs={12}
+            >
               <Row className="text-center">
                 <Col
-                  className="d-flex justify-content-center" md={6} lg={6} sm={12} xs={12} >
-                  <Form id="contactForm" onSubmit={this.onFormSubmit} className="onboardForm">
+                  className="d-flex justify-content-center"
+                  md={6}
+                  lg={6}
+                  sm={12}
+                  xs={12}
+                >
+                  <Form
+                    id="contactForm"
+                    onSubmit={this.onFormSubmit}
+                    className="onboardForm"
+                  >
                     <h4 className="section-title-login">Contact Us</h4>
                     <h6 className="section-sub-title">
                       Please Enter Your Details
@@ -121,8 +132,18 @@ class Contact extends Component {
                       placeholder="Enter Email Id"
                       onChange={this.emailInput}
                     />
-                    <Form.Control onChange={this.messageInput} className="form-control m-2" as="textarea" rows={2} placeholder="Enter Your Message" />
-                    <Button id="sendBtn" type="submit" className="btn btn-block m-2 site-btn-login">
+                    <Form.Control
+                      onChange={this.messageInput}
+                      className="form-control m-2"
+                      as="textarea"
+                      rows={2}
+                      placeholder="Enter Your Message"
+                    />
+                    <Button
+                      id="sendBtn"
+                      type="submit"
+                      className="btn btn-block m-2 site-btn-login"
+                    >
                       Send
                     </Button>
                   </Form>
@@ -149,7 +170,12 @@ class Contact extends Component {
             </Col>
           </Row>
         </Container>
-        <ToastContainer theme="dark" autoClose={3000} hideProgressBar={true} pauseOnHover={false}/>
+        <ToastContainer
+          theme="dark"
+          autoClose={3000}
+          hideProgressBar={true}
+          pauseOnHover={false}
+        />
       </Fragment>
     );
   }

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
-import { Col, Container, Row, Card } from "react-bootstrap";
+import { Col, Container, Row, Card, Breadcrumb } from "react-bootstrap";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class ProductDetails extends Component {
     let image_two = productData["prodDetails"][0]["image_two"];
     let image_three = productData["prodDetails"][0]["image_three"];
     let image_four = productData["prodDetails"][0]["image_four"];
+    let productId = productData["prodDetails"][0]["product_id"];
   
     var colorDiv = 'd-none'
     if(color) {
@@ -79,6 +81,13 @@ class ProductDetails extends Component {
     return (
       <Fragment>
         <Container className="BetweenTwoSection">
+        <div className="breadbody">
+        <Breadcrumb>
+          <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={`/productdetails/${productId}`}>{title}</Link></Breadcrumb.Item>
+          {/* <Breadcrumb.Item>Data</Breadcrumb.Item> */}
+        </Breadcrumb>
+        </div>
           <Row className="p-2">
             <Col
               className="shadow-sm bg-white pb-3 mt-4"

@@ -22,7 +22,13 @@ class AppURL {
     static ProductDetails(id) {
         debugger
         return this.BaseUrl+"/productdetails/"+id
-    } 
+    }
+    
+    static ProductBySearch(searchKey) {
+        return this.BaseUrl+"/search/"+searchKey
+    }
+
+    static Notification = this.BaseUrl+'/notification'
 
 }
 

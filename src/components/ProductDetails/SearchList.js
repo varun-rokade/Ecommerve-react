@@ -1,24 +1,13 @@
-import React, { Component } from 'react'
-import { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Breadcrumb, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class SubCategory extends Component {
-    
-    constructor() {
-        super();
-      }
-    
-        componentDidMount() {
-           window.scroll(0,0)
-        }
-
+class SearchList extends Component {
   render() {
 
-
     const productData = this.props.ProductData
+    const searchKey = this.props.SearchKey
     const categoryList = this.props.Category
-    const subcategoryList = this.props.SubCategory
     // console.log(productData)
 
     const myView = productData.map((list,i) => {
@@ -27,7 +16,7 @@ class SubCategory extends Component {
         return(
           <Row>
         <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-        <Link className="text-link" to='/productdetail'>
+        <Link className="text-link" to={'/productdetails/'+list.id}>
         <Card className="image-box card">
           <img className="center" src={list.image} />
           <Card.Body>
@@ -44,7 +33,7 @@ class SubCategory extends Component {
         return(
           <Row>
         <Col className="p-1" key={1} xl={2} lg={2} md={2} sm={4} xs={6}>
-        <Link className="text-link" to='/productdetail'>
+        <Link className="text-link" to={'/productdetails/'+list.id}>
         <Card className="image-box card">
           <img className="center" src={list.image} />
           <Card.Body>
@@ -58,19 +47,20 @@ class SubCategory extends Component {
         )
       }
     })
+    
 
     return (
-        <Fragment>
+      <Fragment>
         <Container className="text-center" fluid={true}>
         <div className="breadbody">
         <Breadcrumb>
           <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-          <Breadcrumb.Item><Link to={"/productsubcategory/" + categoryList + "/" + subcategoryList}>{categoryList+"/"+subcategoryList}</Link></Breadcrumb.Item>
+          <Breadcrumb.Item><Link to={"/productsbysearch/" + searchKey}>Search For : {searchKey}</Link></Breadcrumb.Item>
           {/* <Breadcrumb.Item>Data</Breadcrumb.Item> */}
         </Breadcrumb>
         </div>
           <div className="section-title text-center mb-55">
-            <h2>{categoryList} / {subcategoryList}</h2>
+            <h2>{searchKey}</h2>
             <p></p>
           </div>
           <Row>
@@ -78,8 +68,8 @@ class SubCategory extends Component {
           </Row>
         </Container>
       </Fragment>
-    )
+    );
   }
 }
 
-export default SubCategory
+export default SearchList
